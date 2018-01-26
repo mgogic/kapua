@@ -32,6 +32,7 @@ import org.eclipse.kapua.app.console.module.user.shared.util.GwtKapuaUserModelCo
 import org.eclipse.kapua.app.console.module.user.shared.util.KapuaGwtUserModelConverter;
 import org.eclipse.kapua.commons.model.id.KapuaEid;
 import org.eclipse.kapua.commons.model.query.predicate.AttributePredicate;
+import org.eclipse.kapua.commons.security.KapuaSecurityUtils;
 import org.eclipse.kapua.locator.KapuaLocator;
 import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.service.authentication.credential.Credential;
@@ -63,6 +64,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Callable;
 
 /**
  * The server side implementation of the RPC service.
@@ -331,11 +333,25 @@ public class GwtUserServiceImpl extends KapuaRemoteServiceServlet implements Gwt
         List<GwtGroupedNVPair> gwtUserDescription = new ArrayList<GwtGroupedNVPair>();
         try {
             KapuaLocator locator = KapuaLocator.getInstance();
-            UserService userService = locator.getService(UserService.class);
-            KapuaId scopeId = KapuaEid.parseCompactId(shortScopeId);
-            KapuaId userId = KapuaEid.parseCompactId(shortUserId);
+            final UserService userService = locator.getService(UserService.class);
+            final KapuaId scopeId = KapuaEid.parseCompactId(shortScopeId);
+            final KapuaId userId = KapuaEid.parseCompactId(shortUserId);
             User user = userService.find(scopeId, userId);
+            User createdUser = KapuaSecurityUtils.doPrivileged(new Callable<User>() {
 
+                @Override
+                public User call() throws Exception {
+                    return userService.find(scopeId, userId);
+                }
+            });
+
+            User modifiedUser = KapuaSecurityUtils.doPrivileged(new Callable<User>() {
+
+                @Override
+                public User call() throws Exception {
+                    return userService.find(scopeId, userId);
+                }
+            });
             if (user != null) {
                 gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userStatus", user.getStatus().toString()));
                 gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userName", user.getName()));
@@ -343,9 +359,9 @@ public class GwtUserServiceImpl extends KapuaRemoteServiceServlet implements Gwt
                 gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userEmail", user.getEmail()));
                 gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userPhoneNumber", user.getPhoneNumber()));
                 gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userCreatedOn", user.getCreatedOn().toString()));
-                gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userCreatedBy", user.getDisplayName()));
+                gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userCreatedBy", createdUser.getName()));
                 gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userModifiedOn", user.getModifiedOn().toString()));
-                gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userModifiedBy", user.getDisplayName()));
+                gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userModifiedBy", modifiedUser.getName()));
                 gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userExpirationDate", user.getExpirationDate()));
             }
         } catch (Exception e) {
