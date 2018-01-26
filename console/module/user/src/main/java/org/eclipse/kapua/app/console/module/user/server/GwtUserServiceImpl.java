@@ -61,6 +61,7 @@ import org.eclipse.kapua.service.user.UserService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -301,8 +302,9 @@ public class GwtUserServiceImpl extends KapuaRemoteServiceServlet implements Gwt
         List<GwtUser> gwtUsers = new ArrayList<GwtUser>();
         try {
             KapuaLocator locator = KapuaLocator.getInstance();
-            UserService userService = locator.getService(UserService.class);
-
+            final UserService userService = locator.getService(UserService.class);
+            UserFactory userFactory = locator.getFactory(UserFactory.class);
+            HashMap<String, String> usernameMap = new HashMap<String, String>();
             // Convert from GWT entity
             UserQuery userQuery = GwtKapuaUserModelConverter.convertUserQuery(loadConfig, gwtUserQuery);
 
@@ -311,12 +313,26 @@ public class GwtUserServiceImpl extends KapuaRemoteServiceServlet implements Gwt
 
             // If there are results
             if (!users.isEmpty()) {
+                final UserQuery allUsersQuery = userFactory.newQuery(GwtKapuaCommonsModelConverter.convertKapuaId(gwtUserQuery.getScopeId()));
+                UserListResult allUsers = KapuaSecurityUtils.doPrivileged(new Callable<UserListResult>() {
+
+                    @Override
+                    public UserListResult call() throws Exception {
+                        return userService.query(allUsersQuery);
+                    }
+                });
+                for (User user : allUsers.getItems()) {
+                    usernameMap.put(user.getId().toCompactId(), user.getName());
+                }
                 // count
                 totalLength = Long.valueOf(userService.count(userQuery)).intValue();
 
-                // Converto to GWT entity
+                // Convert to GWT entity
                 for (User u : users.getItems()) {
-                    gwtUsers.add(KapuaGwtUserModelConverter.convertUser(u));
+                    GwtUser gwtUser = KapuaGwtUserModelConverter.convertUser(u);
+                    gwtUser.setCreatedByName(usernameMap.get(u.getCreatedBy().toCompactId()));
+                    gwtUser.setModifiedByName(usernameMap.get(u.getModifiedBy().toCompactId()));
+                    gwtUsers.add(gwtUser);
                 }
             }
 
