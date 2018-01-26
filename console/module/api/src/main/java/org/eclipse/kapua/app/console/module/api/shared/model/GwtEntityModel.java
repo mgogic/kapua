@@ -68,4 +68,13 @@ public abstract class GwtEntityModel extends KapuaBaseModel {
     public void setCreatedBy(String createdBy) {
         set("createdBy", createdBy);
     }
+
+    public String getCreatedByName() {
+        return get("createdByName");
+    }
+
+    public void setCreatedByName(String createdByName) {
+        set("createdByName", createdByName);
+    }
+
 }

@@ -53,6 +53,14 @@ public abstract class GwtUpdatableEntityModel extends GwtEntityModel {
         set("modifiedBy", modifiedBy);
     }
 
+    public String getModifiedByName() {
+        return get("modifiedByName");
+    }
+
+    public void setModifiedByName(String modifiedByName) {
+        set("modifiedByName", modifiedByName);
+    }
+
     public int getOptlock() {
         return get("optlock");
     }
