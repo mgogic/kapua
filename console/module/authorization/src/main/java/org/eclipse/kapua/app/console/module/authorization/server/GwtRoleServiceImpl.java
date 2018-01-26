@@ -90,6 +90,7 @@ public class GwtRoleServiceImpl extends KapuaRemoteServiceServlet implements Gwt
             // Convert
             gwtRole = KapuaGwtAuthorizationModelConverter.convertRole(role);
 
+
         } catch (Throwable t) {
             KapuaExceptionHandler.handle(t);
         }
@@ -193,7 +194,8 @@ public class GwtRoleServiceImpl extends KapuaRemoteServiceServlet implements Gwt
                 // Converto to GWT entity
                 for (Role r : roles.getItems()) {
                     GwtRole gwtRole = KapuaGwtAuthorizationModelConverter.convertRole(r);
-                    gwtRole.setUserName(usernameMap.get(r.getCreatedBy().toCompactId()));
+                    gwtRole.setCreatedByName(usernameMap.get(r.getCreatedBy().toCompactId()));
+                    gwtRole.setModifiedByName(usernameMap.get(r.getModifiedBy().toCompactId()));
                     gwtRoles.add(gwtRole);
                 }
             }
