@@ -140,10 +140,13 @@ public class UserGrid extends EntityGrid<GwtUser> {
         columnConfig = new ColumnConfig("email", USER_MSGS.gridUserColumnHeaderEmail(), 200);
         columnConfigs.add(columnConfig);
 
+        columnConfig = new ColumnConfig("expirationDateFormatted", USER_MSGS.gridUserColumnHeaderExpirationDate(), 400);
+        columnConfigs.add(columnConfig);
+
         columnConfig = new ColumnConfig("modifiedOn", USER_MSGS.gridUserColumnHeaderModifiedOn(), 200);
         columnConfigs.add(columnConfig);
 
-        columnConfig = new ColumnConfig("expirationDate", USER_MSGS.gridUserColumnHeaderExpirationDate(), 400);
+        columnConfig = new ColumnConfig("modifiedByName", USER_MSGS.gridUserColumnHeaderModifiedBy(), 200);
         columnConfigs.add(columnConfig);
 
         return columnConfigs;
