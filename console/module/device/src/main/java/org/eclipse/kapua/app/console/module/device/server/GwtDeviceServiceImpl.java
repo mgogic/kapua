@@ -212,7 +212,7 @@ public class GwtDeviceServiceImpl extends KapuaRemoteServiceServlet implements G
 
                         if (lastEvent != null) {
                             pairs.add(new GwtGroupedNVPair("devInfo", "devLastEventType", lastEvent.getResource()));
-                            pairs.add(new GwtGroupedNVPair("devInfo", "devLastEventOn", lastEvent.getReceivedOn() != null ? lastEvent.getReceivedOn().getTime() : null));
+                            pairs.add(new GwtGroupedNVPair("devInfo", "devLastEventOn", lastEvent.getReceivedOn()));
                         } else {
                             pairs.add(new GwtGroupedNVPair("devInfo", "devLastEventType", null));
                             pairs.add(new GwtGroupedNVPair("devInfo", "devLastEventOn", null));
@@ -220,7 +220,7 @@ public class GwtDeviceServiceImpl extends KapuaRemoteServiceServlet implements G
                     } else {
                         if (deviceConnection != null) {
                             pairs.add(new GwtGroupedNVPair("devInfo", "devLastEventType", deviceConnection.getStatus().name()));
-                            pairs.add(new GwtGroupedNVPair("devInfo", "devLastEventOn", deviceConnection.getModifiedOn().getTime()));
+                            pairs.add(new GwtGroupedNVPair("devInfo", "devLastEventOn", deviceConnection.getModifiedOn()));
                         } else {
                             pairs.add(new GwtGroupedNVPair("devInfo", "devLastEventType", null));
                             pairs.add(new GwtGroupedNVPair("devInfo", "devLastEventOn", null));
