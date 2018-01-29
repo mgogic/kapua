@@ -13,6 +13,7 @@ package org.eclipse.kapua.app.console.module.api.server.util;
 
 import org.eclipse.kapua.KapuaErrorCodes;
 import org.eclipse.kapua.KapuaException;
+import org.eclipse.kapua.KapuaRuntimeException;
 import org.eclipse.kapua.KapuaUnauthenticatedException;
 import org.eclipse.kapua.app.console.module.api.client.GwtKapuaErrorCode;
 import org.eclipse.kapua.app.console.module.api.client.GwtKapuaException;
@@ -112,7 +113,13 @@ public class KapuaExceptionHandler {
         // // the operation was completed but a system event delivery failed.
         // throw new GwtEdcException(GwtEdcErrorCode.WARNING, t, t.getLocalizedMessage());
         // }
-        else if (t instanceof KapuaException && ((KapuaException) t).getCode().equals(KapuaErrorCodes.INTERNAL_ERROR)) {
+        else if (t instanceof KapuaRuntimeException && ((KapuaRuntimeException) t).getCode().equals(KapuaErrorCodes.ENTITY_ALREADY_EXISTS)) {
+            logger.error("entity already exists", t);
+            throw new GwtKapuaException(GwtKapuaErrorCode.ENTITY_ALREADY_EXISTS, t, t.getLocalizedMessage());
+        } else if (t.getCause() instanceof KapuaRuntimeException && ((KapuaRuntimeException) t.getCause()).getCode().equals(KapuaErrorCodes.ENTITY_ALREADY_EXISTS)) {
+            logger.error("entity already exists", t);
+            throw new GwtKapuaException(GwtKapuaErrorCode.ENTITY_ALREADY_EXISTS, t, t.getLocalizedMessage());
+        } else if (t instanceof KapuaException && ((KapuaException) t).getCode().equals(KapuaErrorCodes.INTERNAL_ERROR)) {
             logger.error("internal service error", t);
             throw new GwtKapuaException(GwtKapuaErrorCode.INTERNAL_ERROR, t, t.getLocalizedMessage());
         } else if(t instanceof KapuaException && ((KapuaException) t).getCode().name().equals(KapuaErrorCodes.PARENT_LIMIT_EXCEEDED_IN_CONFIG.name())) {
