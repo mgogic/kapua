@@ -154,22 +154,14 @@ public class CredentialGrid extends EntityGrid<GwtCredential> {
         columnConfig = new ColumnConfig("credentialType", CREDENTIAL_MSGS.gridCredentialColumnHeaderCredentialType(), 400);
         columnConfigs.add(columnConfig);
 
-        columnConfig = new ColumnConfig("expirationDate", CREDENTIAL_MSGS.gridCredentialColumnHeaderExpirationDate(), 200);
-        columnConfigs.add(columnConfig);
-
-        columnConfig = new ColumnConfig("createdOn", CREDENTIAL_MSGS.gridCredentialColumnHeaderCreatedOn(), 200);
-        columnConfigs.add(columnConfig);
-
-        columnConfig = new ColumnConfig("username", CREDENTIAL_MSGS.gridCredentialColumnHeaderCreatedBy(), 200);
-        columnConfig.setSortable(false);
+        columnConfig = new ColumnConfig("expirationDateFormatted", CREDENTIAL_MSGS.gridCredentialColumnHeaderExpirationDate(), 200);
         columnConfigs.add(columnConfig);
 
         columnConfig = new ColumnConfig("modifiedOn", CREDENTIAL_MSGS.gridCredentialColumnHeaderModifiedOn(), 200);
-        columnConfig.setHidden(true);
         columnConfigs.add(columnConfig);
 
-        columnConfig = new ColumnConfig("username", CREDENTIAL_MSGS.gridCredentialColumnHeaderModifiedBy(), 200);
-        columnConfig.setHidden(true);
+        columnConfig = new ColumnConfig("modifiedByName", CREDENTIAL_MSGS.gridCredentialColumnHeaderModifiedBy(), 200);
+        columnConfig.setSortable(false);
         columnConfigs.add(columnConfig);
 
         return columnConfigs;
