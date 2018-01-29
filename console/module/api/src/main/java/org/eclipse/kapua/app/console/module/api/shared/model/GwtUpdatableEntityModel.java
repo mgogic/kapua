@@ -13,8 +13,6 @@ package org.eclipse.kapua.app.console.module.api.shared.model;
 
 import java.util.Date;
 
-import org.eclipse.kapua.app.console.module.api.client.util.DateUtils;
-
 public abstract class GwtUpdatableEntityModel extends GwtEntityModel {
 
     private static final long serialVersionUID = -8268981197541435575L;
@@ -27,7 +25,11 @@ public abstract class GwtUpdatableEntityModel extends GwtEntityModel {
     @SuppressWarnings({ "unchecked" })
     public <X> X get(String property) {
         if ("modifiedOnFormatted".equals(property)) {
-            return (X) (DateUtils.formatDateTime(getModifiedOn()));
+            if (getModifiedOn() != null) {
+                return (X) (getModifiedOn());
+            } else {
+                return (X) "N/A";
+            }
         } else {
             return super.get(property);
         }

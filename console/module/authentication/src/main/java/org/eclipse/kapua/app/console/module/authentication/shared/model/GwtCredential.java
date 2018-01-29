@@ -13,7 +13,6 @@ package org.eclipse.kapua.app.console.module.authentication.shared.model;
 
 import java.util.Date;
 
-import org.eclipse.kapua.app.console.module.api.client.util.DateUtils;
 import org.eclipse.kapua.app.console.module.api.shared.model.GwtUpdatableEntityModel;
 
 public class GwtCredential extends GwtUpdatableEntityModel {
