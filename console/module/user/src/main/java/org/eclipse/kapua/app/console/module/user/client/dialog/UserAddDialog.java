@@ -57,8 +57,7 @@ public class UserAddDialog extends EntityAddEditDialog {
 
     public UserAddDialog(GwtSession currentSession) {
         super(currentSession);
-
-        DialogUtils.resizeDialog(this, 400, 450);
+        DialogUtils.resizeDialog(this, 400, 440);
     }
 
     @Override
