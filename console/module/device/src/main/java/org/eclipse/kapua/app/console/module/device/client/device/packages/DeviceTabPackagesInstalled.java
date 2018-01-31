@@ -56,7 +56,6 @@ public class DeviceTabPackagesInstalled extends TabItem {
         super(DEVICE_MSGS.deviceInstallTabInstalled(), null);
 
         KapuaIcon icon = new KapuaIcon(IconSet.INBOX);
-        icon.setColor(Color.GREEN);
         setIcon(icon);
 
         this.rootTabPanel = rootTabPanel;
