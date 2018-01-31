@@ -35,7 +35,7 @@ public class FormUtils {
                 }
             } else if (fields.get(i) instanceof Field) {
                 Field<?> field = (Field<?>) fields.get(i);
-                if (field.isRendered() && field.isDirty()) {
+                if (field.isRendered() && field.isDirty() && !(field.getValue() == null && field.getOriginalValue().equals(""))) {
                     return true;
                 }
             }
