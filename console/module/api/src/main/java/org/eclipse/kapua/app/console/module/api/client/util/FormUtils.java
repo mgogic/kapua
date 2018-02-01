@@ -29,7 +29,7 @@ public class FormUtils {
             if (fields.get(i) instanceof MultiField) {
                 MultiField<?> multiField = (MultiField<?>) fields.get(i);
                 for (Field<?> field : multiField.getAll()) {
-                    if (field.isRendered() && field.isDirty()) {
+                    if (field.isRendered() && field.isDirty() && !(field.getValue() == null && field.getOriginalValue().equals(""))) {
                         return true;
                     }
                 }
