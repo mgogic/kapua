@@ -15,6 +15,7 @@ import org.eclipse.kapua.app.console.module.api.client.GwtKapuaErrorCode;
 import org.eclipse.kapua.app.console.module.api.client.GwtKapuaException;
 import org.eclipse.kapua.app.console.module.api.client.ui.dialog.entity.EntityAddEditDialog;
 import org.eclipse.kapua.app.console.module.api.client.ui.panel.FormPanel;
+import org.eclipse.kapua.app.console.module.api.client.ui.widget.KapuaTextField;
 import org.eclipse.kapua.app.console.module.api.client.util.DialogUtils;
 import org.eclipse.kapua.app.console.module.api.client.util.FailureHandler;
 import org.eclipse.kapua.app.console.module.api.client.util.validator.TextFieldValidator;
@@ -25,7 +26,6 @@ import org.eclipse.kapua.app.console.module.authorization.shared.model.GwtRole;
 import org.eclipse.kapua.app.console.module.authorization.shared.model.GwtRoleCreator;
 import org.eclipse.kapua.app.console.module.authorization.shared.service.GwtRoleService;
 
-import com.extjs.gxt.ui.client.widget.form.TextField;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import org.eclipse.kapua.app.console.module.authorization.shared.service.GwtRoleServiceAsync;
@@ -36,7 +36,7 @@ public class RoleAddDialog extends EntityAddEditDialog {
 
     private final static GwtRoleServiceAsync GWT_ROLE_SERVICE = GWT.create(GwtRoleService.class);
 
-    protected TextField<String> roleNameField;
+    protected KapuaTextField<String> roleNameField;
 
     public RoleAddDialog(GwtSession currentSession) {
         super(currentSession);
@@ -95,8 +95,9 @@ public class RoleAddDialog extends EntityAddEditDialog {
 
         //
         // Name
-        roleNameField = new TextField<String>();
+        roleNameField = new KapuaTextField<String>();
         roleNameField.setAllowBlank(false);
+        roleNameField.setMaxLength(255);
         roleNameField.setFieldLabel("* " + MSGS.dialogAddFieldName());
         roleNameField.setValidator(new TextFieldValidator(roleNameField, FieldType.NAME));
         roleFormPanel.add(roleNameField);

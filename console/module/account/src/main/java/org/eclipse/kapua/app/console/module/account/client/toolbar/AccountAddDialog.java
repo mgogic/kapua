@@ -15,6 +15,7 @@ import org.eclipse.kapua.app.console.module.api.client.GwtKapuaErrorCode;
 import org.eclipse.kapua.app.console.module.api.client.GwtKapuaException;
 import org.eclipse.kapua.app.console.module.api.client.ui.dialog.entity.EntityAddEditDialog;
 import org.eclipse.kapua.app.console.module.api.client.ui.panel.FormPanel;
+import org.eclipse.kapua.app.console.module.api.client.ui.widget.KapuaTextField;
 import org.eclipse.kapua.app.console.module.api.client.util.ConsoleInfo;
 import org.eclipse.kapua.app.console.module.api.client.util.DialogUtils;
 import org.eclipse.kapua.app.console.module.api.client.util.FailureHandler;
@@ -48,7 +49,7 @@ public class AccountAddDialog extends EntityAddEditDialog {
     // Account
     final LabelField parentAccountNameLabel = new LabelField();
     protected final LabelField accountNameLabel = new LabelField();
-    protected final TextField<String> accountNameField = new TextField<String>();
+    protected final KapuaTextField<String> accountNameField = new KapuaTextField<String>();
     protected final TextField<String> accountPassword = new TextField<String>();
     protected final TextField<String> confirmPassword = new TextField<String>();
 
@@ -57,8 +58,8 @@ public class AccountAddDialog extends EntityAddEditDialog {
     protected final LabelField accountClusterLabel = new LabelField();
 
     // organization
-    protected final TextField<String> organizationName = new TextField<String>();
-    protected final TextField<String> organizationEmail = new TextField<String>();
+    protected final KapuaTextField<String> organizationName = new KapuaTextField<String>();
+    protected final KapuaTextField<String> organizationEmail = new KapuaTextField<String>();
     protected final TextField<String> organizationContactName = new TextField<String>();
     protected final TextField<String> organizationPhoneNumber = new TextField<String>();
     protected final TextField<String> organizationAddressLine1 = new TextField<String>();
@@ -105,6 +106,7 @@ public class AccountAddDialog extends EntityAddEditDialog {
         fieldSet.add(accountNameLabel);
 
         accountNameField.setAllowBlank(false);
+        accountNameField.setMaxLength(255);
         accountNameField.setName("accountName");
         accountNameField.setFieldLabel("* " + MSGS.accountFormName());
         accountNameField.setValidator(new TextFieldValidator(accountNameField, FieldType.SIMPLE_NAME));
@@ -143,6 +145,7 @@ public class AccountAddDialog extends EntityAddEditDialog {
         //
         organizationName.setAllowBlank(false);
         organizationName.setName("organizationName");
+        organizationName.setMaxLength(255);
         organizationName.setFieldLabel("* " + MSGS.accountFormOrgName());
         fieldSetOrg.add(organizationName, accountFieldsetFormData);
 
@@ -150,6 +153,7 @@ public class AccountAddDialog extends EntityAddEditDialog {
         // Organization email
         //
         organizationEmail.setAllowBlank(false);
+        organizationEmail.setMaxLength(255);
         organizationEmail.setName("organizationEmail");
         organizationEmail.setFieldLabel("* " + MSGS.accountFormOrgEmail());
         organizationEmail.setValidator(new TextFieldValidator(organizationEmail, FieldType.EMAIL));
