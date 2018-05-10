@@ -1,0 +1,71 @@
+From 4da0b6aeefa42b034fbd7613b141ce16ebc71f36 Mon Sep 17 00:00:00 2001
+From: mgogic <36038833+mgogic@users.noreply.github.com>
+Date: Mon, 7 May 2018 10:47:04 +0200
+Subject: [PATCH] Re fix issue 1633 (#1656)
+
+This could be revert, but are two commits.
+
+Signed-off-by: mgogic <milan.gogic@comtrade.com>
+---
+ .../authorization/client/messages/ConsoleGroupMessages.properties       | 2 +-
+ .../authorization/client/messages/ConsolePermissionMessages.properties  | 2 +-
+ .../module/endpoint/client/messages/ConsoleEndpointMessages.properties  | 2 +-
+ .../console/module/tag/client/messages/ConsoleTagMessages.properties    | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/console/module/authorization/src/main/resources/org/eclipse/kapua/app/console/module/authorization/client/messages/ConsoleGroupMessages.properties b/console/module/authorization/src/main/resources/org/eclipse/kapua/app/console/module/authorization/client/messages/ConsoleGroupMessages.properties
+index 9d31178b7..3f70f56be 100644
+--- a/console/module/authorization/src/main/resources/org/eclipse/kapua/app/console/module/authorization/client/messages/ConsoleGroupMessages.properties
++++ b/console/module/authorization/src/main/resources/org/eclipse/kapua/app/console/module/authorization/client/messages/ConsoleGroupMessages.properties
+@@ -45,7 +45,7 @@ dialogDeleteConfirmation=Access Group successfully deleted.
+ dialogDeleteError=Access Group delete failed: {0}
+ #
+ # Group Filter
+-filterHeader=Access Groups Filter
++filterHeader=Access Group Filter
+ filterFieldGroupNameLabel=Name
+ 
+ #
+diff --git a/console/module/authorization/src/main/resources/org/eclipse/kapua/app/console/module/authorization/client/messages/ConsolePermissionMessages.properties b/console/module/authorization/src/main/resources/org/eclipse/kapua/app/console/module/authorization/client/messages/ConsolePermissionMessages.properties
+index 8073a6b4f..2abe3cf1b 100644
+--- a/console/module/authorization/src/main/resources/org/eclipse/kapua/app/console/module/authorization/client/messages/ConsolePermissionMessages.properties
++++ b/console/module/authorization/src/main/resources/org/eclipse/kapua/app/console/module/authorization/client/messages/ConsolePermissionMessages.properties
+@@ -132,7 +132,7 @@ dialogDeletePermissionError=Permission revoke failed: {0}
+ 
+ #
+ # Role Filter
+-filterHeader=Roles Filter
++filterHeader=Role Filter
+ filterFieldRoleNameLabel=Role Name
+ 
+ #
+diff --git a/console/module/endpoint/src/main/resources/org/eclipse/kapua/app/console/module/endpoint/client/messages/ConsoleEndpointMessages.properties b/console/module/endpoint/src/main/resources/org/eclipse/kapua/app/console/module/endpoint/client/messages/ConsoleEndpointMessages.properties
+index e54befacd..61c307c3a 100644
+--- a/console/module/endpoint/src/main/resources/org/eclipse/kapua/app/console/module/endpoint/client/messages/ConsoleEndpointMessages.properties
++++ b/console/module/endpoint/src/main/resources/org/eclipse/kapua/app/console/module/endpoint/client/messages/ConsoleEndpointMessages.properties
+@@ -54,7 +54,7 @@ dialogDeleteConfirmation=Endpoint successfully deleted.
+ dialogDeleteError=Endpoint delete failed: {0}
+ #
+ # Endpoint Filter
+-filterHeader=Endpoints Filter
++filterHeader=Endpoint Filter
+ filterFieldEndpointSchemaLabel=Schema
+ filterFieldEndpointDnsLabel=Domain name
+ filterFieldEndpointPortLabel=Port
+\ No newline at end of file
+diff --git a/console/module/tag/src/main/resources/org/eclipse/kapua/app/console/module/tag/client/messages/ConsoleTagMessages.properties b/console/module/tag/src/main/resources/org/eclipse/kapua/app/console/module/tag/client/messages/ConsoleTagMessages.properties
+index b36252820..dd3daa419 100644
+--- a/console/module/tag/src/main/resources/org/eclipse/kapua/app/console/module/tag/client/messages/ConsoleTagMessages.properties
++++ b/console/module/tag/src/main/resources/org/eclipse/kapua/app/console/module/tag/client/messages/ConsoleTagMessages.properties
+@@ -44,7 +44,7 @@ dialogDeleteConfirmation=Tag successfully deleted.
+ dialogDeleteError=Tag delete failed: {0}
+ #
+ # Tag Filter
+-filterHeader=Tags Filter
++filterHeader=Tag Filter
+ filterFieldTagNameLabel=Name
+ #
+ # Tags - Assigned Devices tab
+-- 
+2.14.1.windows.1
+
